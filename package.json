@@ -1,0 +1,17 @@
+{
+  "name": "query-json",
+  "version": "1.0.0",
+  "description": "A small ES2015 function to look for a JSON response containing a specific property",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --silent --verbose --noStackTrace"
+  },
+  "author": "Karim Temple",
+  "license": "MIT",
+  "devDependencies": {
+    "esm": "^3.2.25",
+    "jest": "^24.9.0",
+    "micro": "^9.3.4",
+    "node-fetch": "^2.6.0"
+  }
+}
