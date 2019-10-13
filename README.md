@@ -8,7 +8,7 @@ A small ES2015 function to look for a JSON response containing a specific proper
 import fn from './path/to/query-json'
 
 fn('https://api.example.com', 'prop')
-    .then(res => console.log(res.success[0].prop))
+    .then(res => console.log(res.success.prop))
 ```
 
 ### Error handling
