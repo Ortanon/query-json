@@ -41,6 +41,9 @@ async function service(req, res) {
         case '/multiple':
             micro.send(res, 200, users)
             break
+        case '/numbers':
+            micro.send(res, 200, [1, 2, 3])
+            break
         default:
             micro.send(res, 404, 'NF')
             break
@@ -60,6 +63,9 @@ afterAll(done => {
 test('Returns a failure object for a missing target', async () => {
     const answer = await queryJSON(url, 'email')
     expect(answer).toHaveProperty('failure')
+
+    const answer2 = await queryJSON(url + '/numbers', 'email')
+    expect(answer2).toHaveProperty('failure')
 })
 
 test('Returns a success object when the target property is located', async () => {
