@@ -8,7 +8,13 @@ export default async function queryJSON(url, target, options = {}) {
         vendor_response = answer.body === null ? null : await answer.text()
     }
 
-    if (vendor_response[target] || vendor_response[0][target]) {
+    if (
+        typeof vendor_response === 'object' 
+        && (
+            target in vendor_response 
+            || (typeof vendor_response[0] === 'object' && target in vendor_response[0])
+        )
+    ) {
         return { success: vendor_response }
     } else {
         const { hostname: vendor, pathname: vendor_resource } = new URL(url),
