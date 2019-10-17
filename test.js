@@ -1,9 +1,6 @@
-const fetch = require('node-fetch'),
-    micro = require('micro'),
-    server = micro(service),
+const { Response } = require('node-fetch'),
     { parse } = require('url')
     url = 'http://localhost:2525'
-global.fetch = fetch
 require = require('esm')(module)
 const { default: queryJSON } = require('.')
 
@@ -28,36 +25,21 @@ const user = {
         }
     ]
 
-async function service(req, res) {
-    const { pathname } = parse(req.url)
+global.fetch = jest.fn(url => {
+    const { pathname } = parse(url)
 
-     switch (pathname) {
+    switch (pathname) {
         case '/':
-            micro.send(res, 200, 'HOME')
-            break
+            return new Response('HOME')
         case '/one':
-             micro.send(res, 200, user)
-             break
+            return new Response(JSON.stringify(user))
         case '/multiple':
-            micro.send(res, 200, users)
-            break
+            return new Response(JSON.stringify(users))
         case '/numbers':
-            micro.send(res, 200, [1, 2, 3])
-            break
+            return new Response(JSON.stringify([1, 2, 3]))
         default:
-            micro.send(res, 404, 'NF')
-            break
+            return new Response('NF')
     }
-}
-
-beforeAll(done => {
-    server.listen(2525)
-    setTimeout(() => done(), 1000)
-})
-
-afterAll(done => {
-    server.close()
-    done()
 })
 
 test('Returns a failure object for a missing target', async () => {
